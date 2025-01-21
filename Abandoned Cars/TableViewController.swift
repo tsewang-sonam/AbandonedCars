@@ -11,6 +11,7 @@ import FirebaseFirestore
 
 class TableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    
     var fowardedMake : String?
     var fowardedModel : String?
     var fowardedColor : String?
@@ -18,16 +19,26 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     var fowardedZip : String?
     
     let db = Firestore.firestore()
-   
+    var cellName = ""
     
     struct Data{
         let title : String
         let imageName: String
     }
     
+    struct CarList {
+        let id: String  // Firestore document ID
+        let score: Int
+        let data: [String: Any]  // Document data from Firestore
+    }
+    
+    var carId: [Car] = []
+    
     var imagePaths = [String]()
 
     let storage = Storage.storage()
+    
+    var carList: [CarList] = []
     
     var cars = [[String: Any]]()
     
@@ -113,9 +124,22 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         tableView.deselectRow(at: indexPath, animated: true)
         
-        if let VC = self.storyboard?.instantiateViewController(withIdentifier: "CollectionViewController") as? CollectionViewController {
+        let carItem = carList[indexPath.row]
+        
+        //        if let selectedCell = tableView.cellForRow(at: indexPath) as? CarListTableViewCell {
+        //
+        //        // Access the text from the custom label (content)
+        //        let forwardedWord = selectedCell.content.text ?? "No text found"
+        //        print("Selected word: \(forwardedWord)")
+        //
+        //        // Forward the text to your view controller or use it as needed
+        //        cellName = forwardedWord
+        //
+        // Navigate to CollectionViewController
+        if let collectionViewController = storyboard?.instantiateViewController(withIdentifier: "CollectionViewController") as? CollectionViewController {
+            collectionViewController.documentID = carItem.id
+            navigationController?.pushViewController(collectionViewController, animated: true)
             
-            navigationController?.pushViewController(VC, animated: true)
         }
     }
     
@@ -135,21 +159,20 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
                 return
             }
             
-            var carList: [(score: Int, data: [String: Any])] = []
+            var carLists: [CarList] = []
+            
             
             for document in documents {
                 
                 let data = document.data()
-                
-                
-                var score = 0
+                var score = data["score"] as? Int ?? 0
+                let documentID = document.documentID
                 
                 if let make = document.data()["make"] as? String, make.lowercased() == self.fowardedMake?.lowercased() {
                     
                     print("make : ''''''''")
                     score += 1
                 }
-                
               
                 if let models = document.data()["models"] as? String, models.lowercased() == self.fowardedModel?.lowercased()
                 {
@@ -163,14 +186,20 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
                     score += 1
                 }
                 
-                carList.append((score: score, data: data))
+                
+                let carList = CarList(id: documentID, score: score, data: data)
+                carLists.append(carList)
             }
             
-            carList.sort { $0.score > $1.score }
+            carLists.sort { $0.score > $1.score }
+            
+            self.carList = carLists  // Assuming carList is a property of your view controller
+           // self.tableView.reloadData()  // Reload table view to reflect sorted data
+                    
             
             
             // Extract the sorted data
-            self.cars = carList.map { $0.data }
+            self.cars = carLists.map { $0.data }
             
             for img in self.cars {
                 if let imgData = img["group_id"] as? String {
@@ -199,9 +228,9 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
            
             if let make = car["make"] as? String,
                let model = car["models"] as? String,
-               let color = car["color"] as? String,
-            let duration = car["duration"] as? String{
-                let title = "\(make)  \(model)  \n  \(color) \n  \(duration)"
+               let color = car["color"] as? String
+            {
+                let title = "\(make) \(model)  \n\(color)"
                 print(title)
                 let imageName = "one" // constant image name
                 let data = Data(title: title, imageName: imageName)

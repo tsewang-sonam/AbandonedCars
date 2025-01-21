@@ -13,7 +13,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+      
         userName.delegate = self
         zipcode.delegate = self
     }
@@ -22,6 +22,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var zipcode: UITextField!
     
     @IBAction func clickBtn(_ sender: UIButton) {
+        
         
         let usersCollection = database.collection("users")
         let uuid = UUID().uuidString
@@ -40,10 +41,28 @@ class ViewController: UIViewController, UITextFieldDelegate {
         let zipSaved = zipcode.text ?? ""
         
         UserDefaults.standard.set(zipSaved, forKey: "zipSaved")
+//        UserDefaults.standard.set(true, forKey: "HasCompletedFirstView")
+//        
+//        let mainViewController = MainMenuViewController() // Replace with your main VC
+//        let navigationController = UINavigationController(rootViewController: mainViewController)
+//        
+//        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+//           let keyWindow = windowScene.windows.first(where: { $0.isKeyWindow }) {
+//            keyWindow.rootViewController = navigationController
+//            UIView.transition(with: keyWindow, duration: 0.3, options: .transitionCrossDissolve, animations: nil, completion: nil)
+//        }
         
-        
+        if let navController = self.navigationController {
+            print("NavigationController exists")
+        } else {
+            print("NavigationController is nil")
+        }
+    
         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "MainMenuViewController") as? MainMenuViewController {
+            print("clicked")
             self.navigationController?.pushViewController(vc, animated: true)
+        }else {
+            print("NavigationController is nil")
         }
     }
     

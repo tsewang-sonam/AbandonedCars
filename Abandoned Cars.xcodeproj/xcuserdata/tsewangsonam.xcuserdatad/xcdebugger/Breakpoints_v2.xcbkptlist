@@ -30,8 +30,8 @@
             filePath = "Abandoned Cars/CarDetailsViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
+            startingLineNumber = "36"
+            endingLineNumber = "36"
             landmarkName = "durationInput(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "Abandoned Cars/TableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
+            startingLineNumber = "53"
+            endingLineNumber = "53"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -62,8 +62,8 @@
             filePath = "Abandoned Cars/TableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
+            startingLineNumber = "60"
+            endingLineNumber = "60"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
@@ -71,17 +71,225 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "76C0D4B4-03B7-4A42-9898-F89515F0B218"
+            uuid = "2FAD5C92-452D-4D01-8A90-E0B88BCA7018"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Abandoned Cars/CollectionViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "188"
+            endingLineNumber = "188"
+            landmarkName = "collectionView(_:numberOfItemsInSection:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A526DBAC-F1AA-4880-AA72-C4086A1D8638"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Abandoned Cars/CollectionViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "181"
+            endingLineNumber = "181"
+            landmarkName = "unknown"
+            landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5C472FCD-071F-4F3A-A45B-88625C8ACAFE"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Abandoned Cars/CollectionViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "196"
+            endingLineNumber = "196"
+            landmarkName = "collectionView(_:cellForItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "315C69DB-48DE-4794-8F4D-B9B66A70E041"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Abandoned Cars/CollectionViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "186"
+            endingLineNumber = "186"
+            landmarkName = "collectionView(_:numberOfItemsInSection:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CE25E6CF-ACCA-4939-B645-21405FA1F713"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Abandoned Cars/TableViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
-            landmarkName = "fetchCars(completion:)"
+            startingLineNumber = "90"
+            endingLineNumber = "90"
+            landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "ED612275-6A17-4E1F-9E10-7B637484A939"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Abandoned Cars/TableViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "tableView(_:cellForRowAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2725428B-1CE6-4711-A3F3-756F71EE8C71"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Abandoned Cars/CollectionViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
+            landmarkName = "fetchAndFilterImagesByPrefix(prefix:completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FA895A86-4CE4-433A-8B6D-2C9E7365D612"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Abandoned Cars/CollectionViewCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "CollectionViewCell"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "AA44EA53-3AD0-4C97-98C4-6D2E13CF25BA"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Abandoned Cars/CollectionViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
+            landmarkName = "collectionView(_:cellForItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "11EE6800-7DE9-4227-92E8-A554B617793E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Abandoned Cars/CollectionViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "279"
+            endingLineNumber = "279"
+            landmarkName = "collectionView(_:layout:sizeForItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "562B710F-335B-406A-A274-FA3AF285DA68"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Abandoned Cars/CollectionViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
+            landmarkName = "collectionView(_:cellForItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "24972CE2-9C38-4ACA-9FF5-D52794945E3F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Abandoned Cars/CollectionViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "278"
+            endingLineNumber = "278"
+            landmarkName = "CollectionViewController"
+            landmarkType = "21">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "0BCFFEFF-5A62-4593-9331-FB34003473CC"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Abandoned Cars/ViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "clickBtn(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3473E4EC-4827-4B67-BF8C-6969254B775D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Abandoned Cars/CollectionViewCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1"
+            endingLineNumber = "1"
+            landmarkName = "unknown"
+            landmarkType = "0">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

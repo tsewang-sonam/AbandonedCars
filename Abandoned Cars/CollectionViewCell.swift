@@ -8,6 +8,6 @@
 import UIKit
 
 class CollectionViewCell: UICollectionViewCell {
-    
-    @IBOutlet weak var myimage: UIImageView!
+ 
+    @IBOutlet weak var carImage: UIImageView!
 }

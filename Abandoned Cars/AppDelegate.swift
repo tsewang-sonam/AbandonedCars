@@ -11,12 +11,28 @@ import Firebase
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
-        return true
+        
+        
+//        window = UIWindow(frame: UIScreen.main.bounds)
+//
+//                if UserDefaults.standard.bool(forKey: "HasCompletedFirstView") {
+//                    // Show the main view
+//                    let mainViewController = MainMenuViewController() // Replace with your main VC
+//                    window?.rootViewController = UINavigationController(rootViewController: mainViewController)
+//                } else {
+//                    // Load the first view from the storyboard
+//                    let storyboard = UIStoryboard(name: "Main", bundle: nil) // Replace "Main" with your storyboard name
+//                    let firstViewController = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
+//                    window?.rootViewController = firstViewController
+//                }
+//
+//                window?.makeKeyAndVisible()
+                return true
     }
 
     // MARK: UISceneSession Lifecycle
@@ -32,6 +48,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
+    
+   
 
 
 }

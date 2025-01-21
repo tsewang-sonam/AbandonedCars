@@ -5,6 +5,7 @@
 //  Created by tsewang sonam on 4/16/24.
 //
 
+
 import UIKit
 import FirebaseFirestore
 
@@ -14,6 +15,8 @@ class CarDetailsViewController: UIViewController, UITextFieldDelegate {
     let database = Firestore.firestore()
     
     let defaults = UserDefaults.standard
+    
+    
     
     @IBOutlet weak var makeInput: UITextField!
     

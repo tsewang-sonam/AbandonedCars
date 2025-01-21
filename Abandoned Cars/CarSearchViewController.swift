@@ -25,7 +25,7 @@ class CarSearchViewController: UIViewController,  UIPickerViewDelegate, UIPicker
     
     @IBOutlet weak var makeTextField : UITextField!
     @IBOutlet weak var modelTextField : UITextField!
-    @IBOutlet weak var yearTextFiekd : UITextField!
+    @IBOutlet weak var colorTextField: UITextField!
     
     @IBOutlet weak var licenseTextField : UITextField!
     @IBOutlet weak var zipArea : UITextField!
@@ -37,9 +37,9 @@ class CarSearchViewController: UIViewController,  UIPickerViewDelegate, UIPicker
             VC.fowardedMake = makeTextField.text
             VC.fowardedModel = modelTextField.text
             print("]]]]]  \(modelTextField.text ?? "0")")
-            VC.fowardedColor = yearTextFiekd.text
-            VC.fowardedLicense = licenseTextField.text
-            VC.fowardedZip = zipArea.text
+            VC.fowardedColor = colorTextField.text
+         //   VC.fowardedLicense = licenseTextField.text
+        //    VC.fowardedZip = zipArea.text
         
             self.navigationController?.pushViewController(VC , animated: true)
         }
@@ -56,9 +56,12 @@ class CarSearchViewController: UIViewController,  UIPickerViewDelegate, UIPicker
         
         pickerView.dataSource = self
         pickerView.delegate = self
+        pickerView.isHidden = true
         
-        zipArea.delegate = self
-        licenseTextField.delegate = self
+        
+        
+//        zipArea.delegate = self
+      //  licenseTextField.delegate = self
         
         let acuraModels = [
             CarModel(name: "ILX", colors: ["White", "Black", "Silver", "Red", "Blue"]),
@@ -343,26 +346,30 @@ class CarSearchViewController: UIViewController,  UIPickerViewDelegate, UIPicker
         
         makeTextField.tag = 1
         modelTextField.tag = 2
-        yearTextFiekd.tag = 3
+        colorTextField.tag = 3
         
         makeTextField.delegate = self
         modelTextField.delegate = self
-        yearTextFiekd.delegate = self
+        colorTextField.delegate = self
         
 
         
         // Add pickerView to the view
+        
            pickerView.translatesAutoresizingMaskIntoConstraints = false
+           
                 view.addSubview(pickerView)
+            
+        
 
                 // Layout constraints
                 NSLayoutConstraint.activate([
                     pickerView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
                     pickerView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
                     pickerView.widthAnchor.constraint(equalToConstant: 200),
-                    pickerView.heightAnchor.constraint(equalToConstant: 150)
+                    pickerView.heightAnchor.constraint(equalToConstant: 250)
                 ])
-        
+       
     
     }
     
@@ -416,6 +423,7 @@ class CarSearchViewController: UIViewController,  UIPickerViewDelegate, UIPicker
         func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
             return pickerData[row]
         }
+
     
         func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
             // Handle the selection
@@ -428,7 +436,7 @@ class CarSearchViewController: UIViewController,  UIPickerViewDelegate, UIPicker
             case 2:
                 modelTextField.text = pickerData[row]
             case 3:
-                yearTextFiekd.text = pickerData[row]
+                colorTextField.text = pickerData[row]
             default:
                 break
             }
@@ -439,6 +447,8 @@ class CarSearchViewController: UIViewController,  UIPickerViewDelegate, UIPicker
   
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        pickerView.isHidden = false
        
             switch textField.tag {
             case 1:
@@ -446,7 +456,7 @@ class CarSearchViewController: UIViewController,  UIPickerViewDelegate, UIPicker
                 pickerData = carMakeNames
                 activeTextField = makeTextField
                 modelTextField.text = ""
-                yearTextFiekd.text = ""
+                colorTextField.text = ""
             case 2:
                 let carMake = activeTextField?.text ?? "Tesla"
                                 
@@ -456,7 +466,7 @@ class CarSearchViewController: UIViewController,  UIPickerViewDelegate, UIPicker
                     }
                 pickerData = carModels
                 activeTextField = modelTextField
-                yearTextFiekd.text = ""
+                colorTextField.text = ""
             case 3:
                 let carMake = makeTextField?.text ?? "Tesla"
                 let carModel = activeTextField?.text ?? "Model X"
@@ -466,7 +476,7 @@ class CarSearchViewController: UIViewController,  UIPickerViewDelegate, UIPicker
                     print("Years of Production : \(carYears)")
                 }
                 pickerData = carYears
-                activeTextField = yearTextFiekd
+                activeTextField = colorTextField
             default:
                 break
             }
@@ -480,8 +490,8 @@ class CarSearchViewController: UIViewController,  UIPickerViewDelegate, UIPicker
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        zipArea.resignFirstResponder()
-        licenseTextField.resignFirstResponder()
+      //  zipArea.resignFirstResponder()
+     //   licenseTextField.resignFirstResponder()
         
         return true
     }

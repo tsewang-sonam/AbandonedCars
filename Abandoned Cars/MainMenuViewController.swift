@@ -15,7 +15,9 @@ class MainMenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        print("hello")
+        
         // Do any additional setup after loading the view.
     }
     
@@ -31,6 +33,10 @@ class MainMenuViewController: UIViewController {
     }
     
     @IBAction func helpBtn(_ sender: Any) {
+        
+        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "ContentTableViewController") as? ContentTableViewController{
+            self.navigationController?.pushViewController(vc, animated: true)  
+        }
     }
     
 

@@ -6,16 +6,36 @@
 //
 
 import UIKit
+import Lottie
 
 class ReportEndViewController: UIViewController {
 
+    
+    @IBOutlet weak var lottieView: UIView!
+    
+    
+        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
+     let animation = LottieAnimationView(name: "read")
+            
+            
+            
+            
+            animation.frame = lottieView.bounds
+            animation.contentMode =  .scaleAspectFit
+            animation.loopMode = .loop
+            animation.animationSpeed = 1.0
+            // Do any additional setup after loading the view.
+            
+        lottieView.addSubview(animation)
+            animation.play()
+        
     }
+   
     
-
     @IBAction func returnBtn(_ sender: Any) {
         if let VC = self.storyboard?.instantiateViewController(withIdentifier: "MainMenuViewController") as? MainMenuViewController
         {
