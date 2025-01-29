@@ -34,10 +34,15 @@ class CarSearchViewController: UIViewController,  UIPickerViewDelegate, UIPicker
     @IBAction func submitBtn(_ sender: Any) {
         
         if let VC = self.storyboard?.instantiateViewController(withIdentifier: "TableViewController") as? TableViewController {
-            VC.fowardedMake = makeTextField.text
-            VC.fowardedModel = modelTextField.text
-            print("]]]]]  \(modelTextField.text ?? "0")")
-            VC.fowardedColor = colorTextField.text
+            
+            var makeWord = makeTextField.text ?? ""
+            VC.fowardedMake = makeWord
+            
+            print("]]]]]  \(makeWord)")
+            
+            VC.fowardedModel = modelTextField.text ?? ""
+           
+            VC.fowardedColor = colorTextField.text ?? ""
          //   VC.fowardedLicense = licenseTextField.text
         //    VC.fowardedZip = zipArea.text
         

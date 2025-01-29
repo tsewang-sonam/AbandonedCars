@@ -25,8 +25,17 @@ class LocationViewController: UIViewController, UITextFieldDelegate {
             }
     }
     
+    
+    @IBOutlet weak var btnBottom: NSLayoutConstraint!
+    
     @IBAction func locationBtn(_ sender: Any) {
        
+        let screenHeight = UIScreen.main.bounds.height
+        
+        if (screenHeight < 658){
+            btnBottom.constant = 20
+        }
+        
         getDocumentName()
         if let VC = self.storyboard?.instantiateViewController(withIdentifier: "MapViewController") as? MapViewController {
             self.navigationController?.pushViewController(VC, animated: true)

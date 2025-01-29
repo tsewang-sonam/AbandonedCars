@@ -278,7 +278,24 @@ extension CollectionViewController: UICollectionViewDelegate, UICollectionViewDa
 extension CollectionViewController: UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        return CGSize(width: 350, height: 400)
+        let screenSize = UIScreen.main.bounds.size
+        let height = screenSize.height
+        let width = screenSize.width
+        
+        if(height < 570){
+            print("One")
+            return CGSize(width: 200, height:220)
+            
+        } else if (height < 750){
+            print("Two")
+            return CGSize(width: 300, height:340)
+            
+        }else{
+            print("Three")
+            return CGSize(width: 400, height:480)
+           
+        }
+        
             
     }
     

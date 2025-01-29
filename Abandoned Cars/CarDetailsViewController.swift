@@ -40,6 +40,8 @@ class CarDetailsViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
         makeInput.delegate = self
         modelInput.delegate = self
         colorInput.delegate = self
@@ -61,9 +63,17 @@ class CarDetailsViewController: UIViewController, UITextFieldDelegate {
     }
     
     
+    @IBOutlet weak var btnBottom: NSLayoutConstraint!
+    
     @IBAction func submitBtn(_ sender: Any) {
         
-        let make = makeInput.text ?? "" 
+        let screenHeight = UIScreen.main.bounds.height
+        
+        
+        if screenHeight == 568 {
+            btnBottom.constant = 20
+                    }
+        let make = makeInput.text ?? ""
         let models = modelInput.text ?? ""
         let color = colorInput.text ?? ""
         let license  = licenseInput.text ?? ""

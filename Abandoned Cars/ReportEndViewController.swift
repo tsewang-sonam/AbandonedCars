@@ -13,11 +13,15 @@ class ReportEndViewController: UIViewController {
     
     @IBOutlet weak var lottieView: UIView!
     
+   
+    
     
         
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         
      let animation = LottieAnimationView(name: "read")
             
@@ -32,6 +36,9 @@ class ReportEndViewController: UIViewController {
             
         lottieView.addSubview(animation)
             animation.play()
+        
+        
+        
         
     }
    

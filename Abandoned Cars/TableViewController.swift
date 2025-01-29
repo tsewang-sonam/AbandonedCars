@@ -12,24 +12,24 @@ import FirebaseFirestore
 class TableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     
-    var fowardedMake : String?
-    var fowardedModel : String?
-    var fowardedColor : String?
-    var fowardedLicense : String?
-    var fowardedZip : String?
+    var fowardedMake: String?
+    var fowardedModel: String?
+    var fowardedColor: String?
+    var fowardedLicense: String?
+    var fowardedZip: String?
     
     let db = Firestore.firestore()
     var cellName = ""
     
     struct Data{
-        let title : String
+        let title: String
         let imageName: String
     }
     
     struct CarList {
-        let id: String  // Firestore document ID
+        let id: String               // Firestore document ID
         let score: Int
-        let data: [String: Any]  // Document data from Firestore
+        let data: [String: Any]      // Document data from Firestore
     }
     
     var carId: [Car] = []
@@ -42,7 +42,6 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var cars = [[String: Any]]()
     
-   // var test = [Data]()
     var test: [Data] = []
     
     @IBOutlet weak var table : UITableView!
@@ -55,19 +54,38 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         table.delegate = self
        // table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
+        
+     
+    
         print("We got word : \(fowardedMake ?? "default value")")
         print("We got word : \(fowardedModel ?? "default value")")
         print("We got word : \(fowardedColor ?? "default value")")
+        
+        showLoadingIndicator()
  
         fetchCars{
-            print("Number of cars: \(self.cars.count)")
-            self.table.reloadData()
+            DispatchQueue.main.async {
+                print("Number of cars: \(self.cars.count)")
+                self.hideLoadingIndicator()
+                self.table.reloadData()
+            }
         }
         
     }
+    func showLoadingIndicator() {
+        let spinner = UIActivityIndicatorView(style: .medium)
+        spinner.startAnimating()
+        table.backgroundView = spinner
+    }
+
+    func hideLoadingIndicator() {
+        table.backgroundView = nil
+    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         print("From Table \(test.count)")
+        
         if let firstElement = self.test.first {
             print(firstElement)
         } else {
@@ -77,6 +95,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
  
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as!
         CarListTableViewCell
@@ -147,6 +166,10 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     // This function gets the info from the database and then checks if it matched to the user input. It then ranks the matches with score and sort them in a ranking order.  Then updates the test Array with the sorted array of cars found based on ranking.
     
     func fetchCars(completion: @escaping () -> Void) {
+        
+        print ("       we in fectch function    ")
+        
+        
         db.collection("cars").getDocuments { (querySnapshot, error) in
             if let error = error
             {
@@ -203,7 +226,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
             
             for img in self.cars {
                 if let imgData = img["group_id"] as? String {
-                    print("images/\(imgData)")
+                    print(" in FEtch images/\(imgData)")
                     self.imagePaths.append( "images/\(imgData)_1.png")
                 }
             }
@@ -243,7 +266,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
         }
         
-        table.reloadData()
+      //  table.reloadData()
         return dataArray
     }
 
