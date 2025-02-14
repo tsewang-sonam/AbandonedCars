@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseStorage
 import FirebaseFirestore
+import SDWebImage
 
 class TableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -22,7 +23,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     var cellName = ""
     
     struct Data{
-        let title: String
+        let title: NSAttributedString
         let imageName: String
     }
     
@@ -32,7 +33,6 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         let data: [String: Any]      // Document data from Firestore
     }
     
-    var carId: [Car] = []
     
     var imagePaths = [String]()
 
@@ -105,32 +105,40 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         // Getting info about car
            let rowData = test[indexPath.row]
         
+        cell.index.text = String(indexPath.row + 1)
+        cell.index.textAlignment = .left
+        cell.index.textColor = .systemGray
+        cell.index.font = .boldSystemFont(ofSize: 20)
+        
         // getting path to the image in firestore
         let imagePath = imagePaths[indexPath.row]
         let imageRef = storage.reference().child(imagePath)
         
-        cell.content.text = rowData.title
-        cell.img.image = UIImage(named: "car")
         
-        imageRef.getData(maxSize: 10 * 1024 * 1024) { data, error in
-                    if let error = error {
-                        print("Error downloading image: \(error)")
-                        return
-                    }
+        
+        DispatchQueue.global(qos: .background).async {
+            let attributedTitle = rowData.title // Expensive operation
+
+            DispatchQueue.main.async {
+                cell.content.attributedText = attributedTitle // Update UI on main thread
+            }
+        }
+        
+        cell.content.numberOfLines = 0
+        cell.img.image = UIImage(named: "car")
+        //cell.img.contentMode = .scaleAspectFit
+        
+                        
+        imageRef.downloadURL { url, error in
+            if let error = error {
+                print("Error fetching image URL: \(error)")
+                return
+            }
             
-                    guard let imageData = data else {
-                        print("No image data found")
-                        return
-                    }
-                    
-        let image = UIImage(data: imageData)
-            
-        DispatchQueue.main.async {
-                        if let updateCell = tableView.cellForRow(at: indexPath) as? CarListTableViewCell {
-                            updateCell.img.image = image
-                        }
-                    }
-                }
+            if let url = url {
+                cell.img.sd_setImage(with: url, placeholderImage: UIImage(named: "car"))
+            }
+        }
                 
                 return cell
     }
@@ -167,9 +175,6 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     func fetchCars(completion: @escaping () -> Void) {
         
-        print ("       we in fectch function    ")
-        
-        
         db.collection("cars").getDocuments { (querySnapshot, error) in
             if let error = error
             {
@@ -192,20 +197,18 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
                 let documentID = document.documentID
                 
                 if let make = document.data()["make"] as? String, make.lowercased() == self.fowardedMake?.lowercased() {
-                    
-                    print("make : ''''''''")
-                    score += 1
+                    score += 3
                 }
               
                 if let models = document.data()["models"] as? String, models.lowercased() == self.fowardedModel?.lowercased()
                 {
-                    
-                    print("models : ''---'")
-                    score += 1
+                    score += 2
                 }
                 if let color = document.data()["color"] as? String, color.lowercased() == self.fowardedColor?.lowercased() {
                     
-                    print("color : '',,,,,,,'''''")
+                    print(document.data()["make"]!)
+                    print(document.data()["color"]!)
+                    print(score)
                     score += 1
                 }
                 
@@ -253,21 +256,56 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
                let model = car["models"] as? String,
                let color = car["color"] as? String
             {
-                let title = "\(make) \(model)  \n\(color)"
-                print(title)
+                let title = "\(make)\n"
+                let subTitle = "\(model)"
+                let body =  "\(color)"
+                let description = textFormat(from: title, subtitle: subTitle, body: body)
                 let imageName = "one" // constant image name
-                let data = Data(title: title, imageName: imageName)
+                let data = Data(title: description, imageName: imageName)
                 dataArray.append(data)
             } else{
+                
                 let title = "missing info"
+                let attributedString = NSAttributedString(string: title)
                 let imageName = "one" // constant image name
-                let data = Data(title: title, imageName: imageName)
+                let data = Data(title: attributedString, imageName: imageName)
                 dataArray.append(data)
             }
         }
-        
-      //  table.reloadData()
         return dataArray
+    }
+    
+    func textFormat(from title: String, subtitle: String, body: String) -> NSAttributedString {
+        let attributedText = NSMutableAttributedString()
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 3
+        paragraphStyle.headIndent = 20
+        
+        let titleAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.boldSystemFont(ofSize: 20),
+            .paragraphStyle : paragraphStyle,
+            .foregroundColor: UIColor.darkGray
+        ]
+        
+        attributedText.append(NSAttributedString(string: "\(title)", attributes: titleAttributes))
+        
+        let subtitleAttributes: [NSAttributedString.Key: Any] = [
+               .font: UIFont.systemFont(ofSize: 16),
+               .paragraphStyle : paragraphStyle,
+               .foregroundColor: UIColor.systemGray
+               
+           ]
+           attributedText.append(NSAttributedString(string: "\(subtitle) ", attributes: subtitleAttributes))
+           
+        let bodyAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 16),
+            .paragraphStyle : paragraphStyle,
+            .foregroundColor: UIColor.systemGray
+        ]
+        attributedText.append(NSAttributedString(string: "\(body)", attributes: bodyAttributes))
+        
+        return attributedText
     }
 
 }

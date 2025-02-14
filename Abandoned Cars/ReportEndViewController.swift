@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import Lottie
+import FLAnimatedImage
 
 class ReportEndViewController: UIViewController {
 
@@ -21,23 +21,27 @@ class ReportEndViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let imgGIF = FLAnimatedImageView()
+        imgGIF.contentMode = .scaleAspectFit
+        imgGIF.translatesAutoresizingMaskIntoConstraints = false
         
+        lottieView.addSubview(imgGIF)
         
-     let animation = LottieAnimationView(name: "read")
+        NSLayoutConstraint.activate([
+            imgGIF.topAnchor.constraint(equalTo: lottieView.topAnchor),
+            imgGIF.bottomAnchor.constraint(equalTo: lottieView.bottomAnchor),
+            imgGIF.rightAnchor.constraint(equalTo: lottieView.rightAnchor),
+            imgGIF.leftAnchor.constraint(equalTo: lottieView.leftAnchor)
             
-            
-            
-            
-            animation.frame = lottieView.bounds
-            animation.contentMode =  .scaleAspectFit
-            animation.loopMode = .loop
-            animation.animationSpeed = 1.0
-            // Do any additional setup after loading the view.
-            
-        lottieView.addSubview(animation)
-            animation.play()
+        ])
         
+        if let pathToGIF = Bundle.main.path(forResource: "thankYou", ofType: "gif"),
+           let gifData = try?Data(contentsOf: URL(fileURLWithPath: pathToGIF)){
+            let AnimatedImage = FLAnimatedImage(animatedGIFData: gifData)
+            imgGIF.animatedImage = AnimatedImage
+        }
         
+
         
         
     }

@@ -30,26 +30,58 @@ class CarSearchViewController: UIViewController,  UIPickerViewDelegate, UIPicker
     @IBOutlet weak var licenseTextField : UITextField!
     @IBOutlet weak var zipArea : UITextField!
     
-   
+    @IBOutlet weak var alertLabel: UILabel!
+    
     @IBAction func submitBtn(_ sender: Any) {
         
-        if let VC = self.storyboard?.instantiateViewController(withIdentifier: "TableViewController") as? TableViewController {
+        if makeTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true || modelTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true || colorTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true  {
             
-            var makeWord = makeTextField.text ?? ""
-            VC.fowardedMake = makeWord
+            alertLabel.text = "Must have Value in textField"
+            emptyTextField()
+         
+        }
+        else {
             
-            print("]]]]]  \(makeWord)")
-            
-            VC.fowardedModel = modelTextField.text ?? ""
-           
-            VC.fowardedColor = colorTextField.text ?? ""
-         //   VC.fowardedLicense = licenseTextField.text
-        //    VC.fowardedZip = zipArea.text
-        
-            self.navigationController?.pushViewController(VC , animated: true)
+            if let VC = self.storyboard?.instantiateViewController(withIdentifier: "TableViewController") as? TableViewController {
+                
+                var makeWord = makeTextField.text ?? ""
+                VC.fowardedMake = makeWord
+                
+                print("]]]]]  \(makeWord)")
+                
+                VC.fowardedModel = modelTextField.text ?? ""
+                
+                VC.fowardedColor = colorTextField.text ?? ""
+                //   VC.fowardedLicense = licenseTextField.text
+                //    VC.fowardedZip = zipArea.text
+                
+                self.navigationController?.pushViewController(VC , animated: true)
+            }
         }
     }
     
+    func emptyTextField(){
+      if makeTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true {
+            makeTextField.layer.borderColor = UIColor.red.cgColor
+            makeTextField.layer.borderWidth = 1.0
+        } else {
+            makeTextField.layer.borderWidth = 0
+        }
+        
+        if modelTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true {
+            modelTextField.layer.borderColor = UIColor.red.cgColor
+            modelTextField.layer.borderWidth = 1.0
+          } else {
+              modelTextField.layer.borderWidth = 0
+          }
+        
+        if colorTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true {
+            colorTextField.layer.borderColor = UIColor.red.cgColor
+            colorTextField.layer.borderWidth = 1.0
+          } else {
+              colorTextField.layer.borderWidth = 0
+          }
+    }
     
     var activeTextField: UITextField?
     

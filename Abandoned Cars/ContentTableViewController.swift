@@ -50,6 +50,10 @@ class ContentTableViewController: UIViewController, UITableViewDelegate, UITable
         performSegue(withIdentifier: "ScrollViewController", sender: details[indexPath.row])
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 80
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ScrollViewController",
            let vc = segue.destination as? ScrollViewController,

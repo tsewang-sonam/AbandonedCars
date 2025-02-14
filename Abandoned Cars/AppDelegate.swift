@@ -16,21 +16,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         FirebaseApp.configure()
-        
-        
-//        window = UIWindow(frame: UIScreen.main.bounds)
+//        let hasLaunchedBefore = UserDefaults.standard.bool(forKey: "hasLaunchedBefore")
+//            print("Has Launched Before: \(hasLaunchedBefore)")
 //
-//                if UserDefaults.standard.bool(forKey: "HasCompletedFirstView") {
-//                    // Show the main view
-//                    let mainViewController = MainMenuViewController() // Replace with your main VC
-//                    window?.rootViewController = UINavigationController(rootViewController: mainViewController)
+//            if hasLaunchedBefore {
+//                    // If the app has been launched before, set the root view controller to the MainViewController
+//                    let mainVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "MainMenuViewController")
+//                    window?.rootViewController = mainVC
 //                } else {
-//                    // Load the first view from the storyboard
-//                    let storyboard = UIStoryboard(name: "Main", bundle: nil) // Replace "Main" with your storyboard name
-//                    let firstViewController = storyboard.instantiateViewController(withIdentifier: "ViewController") as! ViewController
-//                    window?.rootViewController = firstViewController
+//                    // If it's the first launch, set the root view controller to the InitialViewController
+//                    let initialVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController")
+//                    window?.rootViewController = initialVC
 //                }
 //
+//                // Make the window visible
 //                window?.makeKeyAndVisible()
                 return true
     }

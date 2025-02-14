@@ -17,12 +17,19 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate , 
     let database = Firestore.firestore()
 
     
+    
     //  private reference to the firebaseStorage
     private let storage = Storage.storage().reference()
     
     var currentCount = 0
     
     @IBOutlet weak var doneView: UIButton!
+    @IBOutlet weak var cameraOne: UIView!
+    @IBOutlet weak var cameraTwo: UIView!
+    @IBOutlet weak var cameraThree: UIView!
+    @IBOutlet weak var cameraFour: UIView!
+    @IBOutlet weak var cameraFive: UIView!
+    @IBOutlet weak var cameraSix: UIView!
     
     var imagePicker: UIImagePickerController!
     
@@ -31,6 +38,15 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate , 
         setupImagePicker()
         navigationItem.hidesBackButton = true
         doneView.isHidden = true
+        
+        cameraOne.layer.cornerRadius = 10.0
+        cameraTwo.layer.cornerRadius = 10.0
+        cameraThree.layer.cornerRadius = 10.0
+        cameraFour.layer.cornerRadius = 10.0
+        cameraFive.layer.cornerRadius = 10.0
+        cameraSix.layer.cornerRadius = 10.0
+        
+        cameraOne.layer.masksToBounds = true
         // Do any additional setup after loading the view.
     }
     

@@ -6,16 +6,53 @@
 //
 import FirebaseFirestore
 import UIKit
+import FLAnimatedImage
 
 class ViewController: UIViewController, UITextFieldDelegate {
 
     let database = Firestore.firestore()
+    
+    @IBOutlet weak var fLanimation: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
       
         userName.delegate = self
         zipcode.delegate = self
+        
+   
+        //Beautify TextField
+        userName.layer.cornerRadius = 10
+        userName.layer.masksToBounds = true
+        userName.clearButtonMode = .whileEditing
+    
+        //Beautify TextField
+        zipcode.layer.cornerRadius = 10
+        zipcode.layer.masksToBounds = true
+        zipcode.clearButtonMode = .whileEditing
+        
+        
+        let imgGIF = FLAnimatedImageView()
+        imgGIF.contentMode = .scaleAspectFit
+        imgGIF.translatesAutoresizingMaskIntoConstraints = false
+        
+        fLanimation.addSubview(imgGIF)
+        
+        NSLayoutConstraint.activate([
+            imgGIF.topAnchor.constraint(equalTo: fLanimation.topAnchor),
+            imgGIF.bottomAnchor.constraint(equalTo: fLanimation.bottomAnchor),
+            imgGIF.rightAnchor.constraint(equalTo: fLanimation.rightAnchor),
+            imgGIF.leftAnchor.constraint(equalTo: fLanimation.leftAnchor)
+        ])
+        
+        if let animationPath = Bundle.main.path(forResource: "welcome", ofType: "gif"),
+           let gifData = try?Data(contentsOf: URL(fileURLWithPath: animationPath)){
+            
+            let AnimatedImage = FLAnimatedImage(animatedGIFData: gifData)
+            imgGIF.animatedImage = AnimatedImage
+        }
+        
+        
     }
     
     @IBOutlet weak var userName: UITextField!
@@ -57,6 +94,8 @@ class ViewController: UIViewController, UITextFieldDelegate {
         } else {
             print("NavigationController is nil")
         }
+        
+      //  UserDefaults.standard.set(true, forKey: "hasLaunchedBefore")
     
         if let vc = self.storyboard?.instantiateViewController(withIdentifier: "MainMenuViewController") as? MainMenuViewController {
             print("clicked")

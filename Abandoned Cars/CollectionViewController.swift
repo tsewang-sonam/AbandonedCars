@@ -13,6 +13,7 @@ import SDWebImage
 
 class CollectionViewController: UIViewController {
     
+    @IBOutlet weak var home: UIButton!
     
     var documentID: String?
     
@@ -26,6 +27,22 @@ class CollectionViewController: UIViewController {
     @IBOutlet weak var carName: UILabel!
     
     @IBOutlet weak var carLocation: UILabel!
+
+    @IBAction func backBtn(_ sender: Any) {
+        
+       // if let VC = self.storyboard?.instantiateViewController(withIdentifier: "TableViewController") as? TableViewController {
+            
+            self.navigationController?.popViewController( animated: true)
+       // }
+    }
+    @IBAction func homeButton(_ sender: Any) {
+        
+      if let VC = self.storyboard?.instantiateViewController(withIdentifier: "MainMenuViewController") as? MainMenuViewController {
+            
+          self.navigationController?.setViewControllers([VC], animated: true)
+            
+        }
+    }
     
     @IBAction func copyBtn(_ sender: Any) {
         let text = "\(latitude ?? 37.8721), \(longitude ?? 175.6829) "
@@ -49,6 +66,15 @@ class CollectionViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        navigationItem.hidesBackButton = true
+        home.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+                home.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16), // Align to the right
+                home.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0)
+            ])
         
         if let documentID = documentID {
             fetchCarDetails(documentID: documentID)
