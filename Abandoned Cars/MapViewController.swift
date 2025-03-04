@@ -14,11 +14,30 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     let defaults = UserDefaults.standard
     let database = Firestore.firestore()
+    var pinIsThere : Bool = false
     
     @IBAction func continueBtn(_ sender: Any) {
-        print("pressed")
-        if let vc = self.storyboard?.instantiateViewController(withIdentifier: "CarDetailsViewController") as? CarDetailsViewController {
-            self.navigationController?.pushViewController(vc, animated: true)
+       
+      // checks if user has input pin. If not we show a UIlabel asking user to do so.
+        if(pinIsThere == true){
+            if let vc = self.storyboard?.instantiateViewController(withIdentifier: "CarDetailsViewController") as? CarDetailsViewController {
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+        }else
+        {
+            let labelMessage = UILabel()
+            labelMessage.text = "Please pin the location on the map"
+            labelMessage.textColor = .red
+            labelMessage.frame = CGRect(x: 20, y: 30, width: 350, height: 30)
+            labelMessage.backgroundColor = .white
+            labelMessage.textAlignment = .center
+            
+            mapView.addSubview(labelMessage)
+            
+            // hides the labelMessage after 5 seconds of display
+            DispatchQueue.main.asyncAfter(deadline: .now()+5){
+                labelMessage.isHidden = true
+            }
         }
     }
     
@@ -26,6 +45,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
     
     var selectedLocation: CLLocationCoordinate2D?
     var pinAnnotation: MKPointAnnotation?
+    
     
     let manager = CLLocationManager()
     
@@ -111,6 +131,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, MKMapViewD
                 if let error = error {
                     print("Error updating document: \(error)")
                 } else {
+                    self.pinIsThere = true
                     print("Location updated successfully")
                 }
             }

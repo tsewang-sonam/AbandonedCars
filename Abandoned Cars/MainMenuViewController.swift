@@ -11,17 +11,26 @@ import FLAnimatedImage
 class MainMenuViewController: UIViewController {
 
     
+    
     //var forwardedString : String?
     
     @IBOutlet weak var lottieView: UIView!
     
     let loadingImage = FLAnimatedImageView()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.hidesBackButton = true
         
-        loadingGIF()
+       
+        let firstTimeLoading = UserDefaults.standard.bool(forKey: "viewed")
+        
+        if !firstTimeLoading {
+            loadingGIF()
+            UserDefaults.standard.set(true, forKey: "viewed")
+        }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
             self.loadingImage.isHidden = true

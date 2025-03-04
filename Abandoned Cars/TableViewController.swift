@@ -9,6 +9,7 @@ import UIKit
 import FirebaseStorage
 import FirebaseFirestore
 import SDWebImage
+import Lottie
 
 class TableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -54,9 +55,6 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         table.delegate = self
        // table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         
-        
-     
-    
         print("We got word : \(fowardedMake ?? "default value")")
         print("We got word : \(fowardedModel ?? "default value")")
         print("We got word : \(fowardedColor ?? "default value")")
@@ -73,9 +71,20 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         
     }
     func showLoadingIndicator() {
-        let spinner = UIActivityIndicatorView(style: .medium)
-        spinner.startAnimating()
-        table.backgroundView = spinner
+        
+        let animationView = LottieAnimationView(name: "loading")
+      
+        let size: CGFloat = 200
+            
+            
+            animationView.frame = CGRect(x: 0, y: 0, width: size, height: size)
+            animationView.contentMode = .scaleAspectFit
+            animationView.loopMode = .loop
+            animationView.play()
+            
+            
+            table.backgroundView = animationView
+        
     }
 
     func hideLoadingIndicator() {
@@ -124,9 +133,24 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
         }
         
+       
+        
+        
         cell.content.numberOfLines = 0
-        cell.img.image = UIImage(named: "car")
-        //cell.img.contentMode = .scaleAspectFit
+        cell.img.image = UIImage(systemName: "arrow.triangle.2.circlepath")
+        cell.img.tintColor = .systemGray
+        
+        // Reducing the size of SF Symbol for clean look. (Note : SF Symbols are vector-based and can be resized with SymbolConfiguration)
+        cell.img.image = UIImage(systemName: "arrow.triangle.2.circlepath")?
+            .withConfiguration(UIImage.SymbolConfiguration(weight: .light))
+
+        let rotation = CABasicAnimation(keyPath: "transform.rotation")
+            rotation.toValue = CGFloat.pi * 2
+            rotation.duration = 1.0
+            rotation.repeatCount = .infinity
+            cell.img.layer.add(rotation, forKey: "rotateAnimation")
+       
+            cell.img.contentMode = .scaleAspectFit
         
                         
         imageRef.downloadURL { url, error in
@@ -136,7 +160,17 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
             
             if let url = url {
-                cell.img.sd_setImage(with: url, placeholderImage: UIImage(named: "car"))
+                cell.img.layer.removeAnimation(forKey: "rotateAnimation")
+                
+                let blurEffect = UIBlurEffect(style: .systemThinMaterial)
+                let blurView = UIVisualEffectView(effect: blurEffect)
+                blurView.frame = cell.img.bounds
+                blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+                blurView.alpha = 0.4
+                cell.img.addSubview(blurView)
+                
+                cell.img.sd_setImage(with: url, placeholderImage: UIImage(named: "arrow.triangle.2.circlepath"))
+                
             }
         }
                 
@@ -153,16 +187,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         let carItem = carList[indexPath.row]
         
-        //        if let selectedCell = tableView.cellForRow(at: indexPath) as? CarListTableViewCell {
-        //
-        //        // Access the text from the custom label (content)
-        //        let forwardedWord = selectedCell.content.text ?? "No text found"
-        //        print("Selected word: \(forwardedWord)")
-        //
-        //        // Forward the text to your view controller or use it as needed
-        //        cellName = forwardedWord
-        //
-        // Navigate to CollectionViewController
+
         if let collectionViewController = storyboard?.instantiateViewController(withIdentifier: "CollectionViewController") as? CollectionViewController {
             collectionViewController.documentID = carItem.id
             navigationController?.pushViewController(collectionViewController, animated: true)

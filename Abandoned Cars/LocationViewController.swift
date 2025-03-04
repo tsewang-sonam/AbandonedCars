@@ -20,9 +20,6 @@ class LocationViewController: UIViewController, UITextFieldDelegate {
     @IBAction func continueBtn(_ sender: Any) {
         
         addressToPin( )
-            if let VC = self.storyboard?.instantiateViewController(withIdentifier: "CarDetailsViewController") as? CarDetailsViewController {
-              self.navigationController?.pushViewController(VC, animated: true)
-            }
     }
     
     
@@ -55,6 +52,8 @@ class LocationViewController: UIViewController, UITextFieldDelegate {
         cityName.delegate = self
         stateName.delegate = self
         zipcode.delegate = self
+        
+        
         // Do any additional setup after loading the view.
     }
     
@@ -78,13 +77,12 @@ class LocationViewController: UIViewController, UITextFieldDelegate {
         let state = stateName.text ?? ""
         let zipcode = zipcode.text ?? ""
         
-        let location = "\(street) , \(city) , \(state) , \(zipcode)"
+        let location = "\(street)\(city)\(state)\(zipcode)"
         
         geocoder.geocodeAddressString(location) {(placemarks, error) in
             
             if let error = error {
-                
-                print ("Geo location failed ")
+                self.reEnterInput( location: location)
                 return
             }
             if let placemark = placemarks?.first {
@@ -108,12 +106,48 @@ class LocationViewController: UIViewController, UITextFieldDelegate {
                     }
                 }
                 
+                if let VC = self.storyboard?.instantiateViewController(withIdentifier: "CarDetailsViewController") as? CarDetailsViewController {
+                  self.navigationController?.pushViewController(VC, animated: true)
+                }
+                
             } else {
                 print("No placemark found for the provided address.")
             }
             
         }
     }
+    
+    func  reEnterInput(location: String){
+        
+        if location.isEmpty{
+            
+            let labelMessage = UILabel()
+            labelMessage.text = "Must Enter Address Or Use Locate On Map"
+            labelMessage.textColor = .red
+            labelMessage.frame = CGRect(x: 30, y: 120 , width: 350, height: 30)
+            //labelMessage.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(labelMessage)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5){
+                labelMessage.isHidden = true
+            }
+        }
+        else{
+            
+            let labelMessage = UILabel()
+            labelMessage.text = "Enter Correct Address Or Use Locate On Map"
+            labelMessage.textColor = .red
+            labelMessage.frame = CGRect(x: 30, y: 120 , width: 350, height: 30)
+           // labelMessage.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(labelMessage)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5){
+                labelMessage.isHidden = true
+            }
+        }
+        
+    }
+    
     
     func getDocumentName(){
         
@@ -129,7 +163,9 @@ class LocationViewController: UIViewController, UITextFieldDelegate {
                          if let error = error {
                              print("Error getting documents: \(error)")
                          } else {
+                            
                              // Check if there are any documents returned
+                             
                              guard let document = querySnapshot?.documents.first else {
                                  print("No documents found")
                                  return
@@ -140,6 +176,6 @@ class LocationViewController: UIViewController, UITextFieldDelegate {
                              self.defaults.set(documentID, forKey: "docId")
                              
                          }
-                     }
+            }
     }
 }

@@ -46,9 +46,6 @@ class CarSearchViewController: UIViewController,  UIPickerViewDelegate, UIPicker
                 
                 var makeWord = makeTextField.text ?? ""
                 VC.fowardedMake = makeWord
-                
-                print("]]]]]  \(makeWord)")
-                
                 VC.fowardedModel = modelTextField.text ?? ""
                 
                 VC.fowardedColor = colorTextField.text ?? ""
@@ -393,7 +390,7 @@ class CarSearchViewController: UIViewController,  UIPickerViewDelegate, UIPicker
         
         // Add pickerView to the view
         
-           pickerView.translatesAutoresizingMaskIntoConstraints = false
+        pickerView.translatesAutoresizingMaskIntoConstraints = false
            
                 view.addSubview(pickerView)
             
@@ -406,8 +403,6 @@ class CarSearchViewController: UIViewController,  UIPickerViewDelegate, UIPicker
                     pickerView.widthAnchor.constraint(equalToConstant: 200),
                     pickerView.heightAnchor.constraint(equalToConstant: 250)
                 ])
-       
-    
     }
     
    
@@ -469,7 +464,6 @@ class CarSearchViewController: UIViewController,  UIPickerViewDelegate, UIPicker
             switch activeTextField.tag {
             case 1:
                 makeTextField.text = pickerData[row]
-                
             case 2:
                 modelTextField.text = pickerData[row]
             case 3:

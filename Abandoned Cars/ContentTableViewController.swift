@@ -43,6 +43,7 @@ class ContentTableViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = rowNames[indexPath.row]
+        cell.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: .medium)
         return cell
     }
     
@@ -51,7 +52,7 @@ class ContentTableViewController: UIViewController, UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 80
+        return 70
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

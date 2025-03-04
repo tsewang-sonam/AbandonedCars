@@ -13,6 +13,8 @@ import SDWebImage
 
 class CollectionViewController: UIViewController {
     
+    var pageControl: UIPageControl!
+    
     @IBOutlet weak var home: UIButton!
     
     var documentID: String?
@@ -22,19 +24,19 @@ class CollectionViewController: UIViewController {
     var imageGroup : String?
     
     
-    //var id
+    var pageNum : Int?
     
     @IBOutlet weak var carName: UILabel!
     
     @IBOutlet weak var carLocation: UILabel!
+    
+    
 
     @IBAction func backBtn(_ sender: Any) {
         
-       // if let VC = self.storyboard?.instantiateViewController(withIdentifier: "TableViewController") as? TableViewController {
-            
             self.navigationController?.popViewController( animated: true)
-       // }
     }
+    
     @IBAction func homeButton(_ sender: Any) {
         
       if let VC = self.storyboard?.instantiateViewController(withIdentifier: "MainMenuViewController") as? MainMenuViewController {
@@ -64,6 +66,7 @@ class CollectionViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -84,6 +87,7 @@ class CollectionViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.collectionViewLayout = UICollectionViewFlowLayout()
         
+        
         print("Delegate: \(collectionView.delegate as Any)")
         print(type(of: collectionView.collectionViewLayout))
         
@@ -98,10 +102,35 @@ class CollectionViewController: UIViewController {
         collectionView.reloadData()
         collectionView.collectionViewLayout.invalidateLayout()
         
+        
+        
     }
     
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        collectionView.isPagingEnabled = true
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+    }
+    
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+            let pageWidth = collectionView.frame.width
+            let currentPage = Int(collectionView.contentOffset.x / pageWidth)
+            pageControl.currentPage = Int((collectionView.contentOffset.x + (0.5 * pageWidth)) / pageWidth)
+
+        }
+    
+
+    
     // Here we fecth the data from firebase database for displaying text about car details and location it was found. ALso we get the group id so we can fetch multiple image related to a single item from the fire store.
+    
     func fetchCarDetails(documentID: String) {
+        
+       // here newDate is todays date and will be compared to old date of upload
+        let newDate = Calendar.current.startOfDay(for: Date())
+        
         let db = Firestore.firestore()
         let docRef = db.collection("cars").document(documentID)
         
@@ -116,9 +145,26 @@ class CollectionViewController: UIViewController {
                 let carLat = data?["latitude"] as? Double
                 let carLong = data?["longitude"] as? Double
                 self.imageGroup = data?["group_id"] as? String
+                let getDate = data?["upLoadDate"] as? String
                
                 print("image=  \(self.imageGroup ?? "error")")
-               
+              
+                // using dateformatter to make the date from string to date
+                let formatter = DateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd"
+                
+                let lastUpdatedDate = formatter.date(from: getDate ?? "") ?? Date.distantPast
+                
+                let calendar = Calendar.current
+                let numberOfDays = calendar.dateComponents([.day], from: lastUpdatedDate, to: newDate).day ?? 0
+                
+                // compares old date to currentdate and get the difference.
+                if numberOfDays > 0 {
+                                docRef.updateData([
+                                    "duration": FieldValue.increment(Int64(numberOfDays)),
+                                    "upLoadDate": formatter.string(from: Date())
+                                ])
+                            }
                 
                 self.carName.text =  "\(carMake ?? "") \(carModel ?? "")  \n\(carColor ?? "")  \n Days on Street '\(carDay ?? "")'"
                 
@@ -211,11 +257,27 @@ extension CollectionViewController: UICollectionViewDelegate, UICollectionViewDa
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         print(" Count is \(items.count)")
+        pageNum = items.count
+        
+        
+        pageControl = UIPageControl()
+            pageControl.translatesAutoresizingMaskIntoConstraints = false
+            pageControl.numberOfPages = pageNum ?? 5  // Set this dynamically based on your data
+            pageControl.currentPage = 0
+        pageControl.pageIndicatorTintColor = .lightGray
+        pageControl.currentPageIndicatorTintColor = .black
+              view.addSubview(pageControl)
+
+              NSLayoutConstraint.activate([
+                  pageControl.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),
+                  pageControl.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: -5)
+              ])
+        
         return items.count
         
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
@@ -237,7 +299,7 @@ extension CollectionViewController: UICollectionViewDelegate, UICollectionViewDa
                     }
                     
                     if let url = url {
-                        
+                        cell.carImage.contentMode = .scaleAspectFit
                         cell.carImage.sd_setImage(with: url, placeholderImage: UIImage(named: "car1"))
                     }
                 }

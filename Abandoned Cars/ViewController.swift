@@ -17,6 +17,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
       
+   
         userName.delegate = self
         zipcode.delegate = self
         
@@ -60,7 +61,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
     
     @IBAction func clickBtn(_ sender: UIButton) {
         
-        
+        print("Pressed")
         let usersCollection = database.collection("users")
         let uuid = UUID().uuidString
         let documentReference = usersCollection.document(uuid)
