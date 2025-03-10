@@ -147,7 +147,11 @@ class CollectionViewController: UIViewController {
                 self.imageGroup = data?["group_id"] as? String
                 let getDate = data?["upLoadDate"] as? String
                
+                var temp = 0
                 print("image=  \(self.imageGroup ?? "error")")
+                
+                print("date = \(String(describing: getDate))")
+                print("newDate = \(newDate)")
               
                 // using dateformatter to make the date from string to date
                 let formatter = DateFormatter()
@@ -156,17 +160,14 @@ class CollectionViewController: UIViewController {
                 let lastUpdatedDate = formatter.date(from: getDate ?? "") ?? Date.distantPast
                 
                 let calendar = Calendar.current
-                let numberOfDays = calendar.dateComponents([.day], from: lastUpdatedDate, to: newDate).day ?? 0
-                
+                let numberOfDays = calendar.dateComponents([.day], from: lastUpdatedDate, to: newDate).day ?? 5
+                print("numberOfDays = \(numberOfDays)")
                 // compares old date to currentdate and get the difference.
                 if numberOfDays > 0 {
-                                docRef.updateData([
-                                    "duration": FieldValue.increment(Int64(numberOfDays)),
-                                    "upLoadDate": formatter.string(from: Date())
-                                ])
+                    temp = (Int(carDay ?? "5555555") ?? 99999) + numberOfDays
                             }
                 
-                self.carName.text =  "\(carMake ?? "") \(carModel ?? "")  \n\(carColor ?? "")  \n Days on Street '\(carDay ?? "")'"
+                self.carName.text =  "\(carMake ?? "") \(carModel ?? "")  \n\(carColor ?? "")  \n Days on Street '\(String(temp))'"
                 
                 self.latitude = carLat ?? 37.8721
                 self.longitude = carLong ?? 175.6829

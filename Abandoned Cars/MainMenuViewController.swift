@@ -79,20 +79,26 @@ class MainMenuViewController: UIViewController {
         }
     }
     
-    func loadingGIF(){
-        
+    func loadingGIF() {
+        // Ensure the image view is properly set up before loading the GIF
         loadingImage.frame = UIScreen.main.bounds
         loadingImage.contentMode = .scaleAspectFit
         loadingImage.clipsToBounds = true
         
-        if let pathToGIF = Bundle.main.path(forResource: "animation", ofType: "gif"),
-           let gifData = try?Data(contentsOf: URL(fileURLWithPath: pathToGIF)){
-            
-            let animation  = FLAnimatedImage(animatedGIFData: gifData)
-            loadingImage.animatedImage = animation
-        }
-        
+        // Add loadingImage as a subview early, so it’s displayed while the GIF is being loaded
         view.addSubview(loadingImage)
+        DispatchQueue.global(qos: .background).async { [weak self] in
+            guard let self = self else { return }
+            if let pathToGIF = Bundle.main.path(forResource: "animation", ofType: "gif"),
+               let gifData = try? Data(contentsOf: URL(fileURLWithPath: pathToGIF)) {
+                
+                let animation = FLAnimatedImage(animatedGIFData: gifData)
+                
+                DispatchQueue.main.async {
+                    self.loadingImage.animatedImage = animation
+                }
+            }
+        }
     }
     
 

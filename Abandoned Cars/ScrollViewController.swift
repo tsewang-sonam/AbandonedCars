@@ -23,6 +23,9 @@ class ScrollViewController: UIViewController {
                                       .characterEncoding: String.Encoding.utf8.rawValue], documentAttributes: nil )
             
             displayLabel.attributedText = sentence
+            displayLabel.textColor = UIColor{ traitCollection in
+                return traitCollection.userInterfaceStyle == .dark ? .white : .darkGray
+            }
         }
         
 
