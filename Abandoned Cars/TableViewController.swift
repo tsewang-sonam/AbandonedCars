@@ -230,10 +230,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
                     score += 2
                 }
                 if let color = document.data()["color"] as? String, color.lowercased() == self.fowardedColor?.lowercased() {
-                    
-                    print(document.data()["make"]!)
-                    print(document.data()["color"]!)
-                    print(score)
+                  
                     score += 1
                 }
                 

@@ -209,7 +209,7 @@ class ViewController: UIViewController, UITextFieldDelegate {
 func checkUserExist(username: String, completion: @escaping (Bool) -> Void) {
     let usersCollection = database.collection("users")
     
-    usersCollection.whereField("user_name", isEqualTo: username).getDocuments { (snapshot, error) in
+    usersCollection.whereField("user_name", isEqualTo: username.lowercased()).getDocuments { (snapshot, error) in
         if let error = error {
             print("Error checking username: \(error.localizedDescription)")
             completion(true) // Assume taken if there's an error
@@ -235,7 +235,7 @@ func checkUserExist(username: String, completion: @escaping (Bool) -> Void) {
             
             documentReference.setData([
                 "zipcode" : zipcode.text ?? 99,
-                "user_name" : userName.text ?? "error",
+                "user_name" : userName.text?.lowercased() ?? "error",
                 "email" : email.text ?? "a@gmail.com"
             ])
             
