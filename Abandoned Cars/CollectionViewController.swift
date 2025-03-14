@@ -23,6 +23,7 @@ class CollectionViewController: UIViewController {
     var longitude : Double?
     var imageGroup : String?
     
+    var countyName: String?
     
     var pageNum : Int?
     
@@ -125,7 +126,8 @@ class CollectionViewController: UIViewController {
 
     
     // Here we fecth the data from firebase database for displaying text about car details and location it was found. ALso we get the group id so we can fetch multiple image related to a single item from the fire store.
-    
+   
+    // MARK: - fetch
     func fetchCarDetails(documentID: String) {
         
        // here newDate is todays date and will be compared to old date of upload
@@ -167,7 +169,7 @@ class CollectionViewController: UIViewController {
                     temp = (Int(carDay ?? "5555555") ?? 99999) + numberOfDays
                             }
                 
-                self.carName.text =  "\(carMake ?? "") \(carModel ?? "")  \n\(carColor ?? "")  \n Days on Street '\(String(temp))'"
+               
                 
                 self.latitude = carLat ?? 37.8721
                 self.longitude = carLong ?? 175.6829
@@ -175,10 +177,34 @@ class CollectionViewController: UIViewController {
                     if let address = address {
                         print("Address: \(address)")
                         self.carLocation.text = address
+                        self.carLocation.lineBreakMode = .byWordWrapping
+                        self.carLocation.font = UIFont.systemFont(ofSize: 16)
                     } else {
                         print("Could not retrieve address.")
                         self.carLocation.text = "address not found"
                     }
+                    
+                    
+//                    self.carName.text =  " \(carMake ?? "") \(carModel ?? "")  \(carColor ?? "")  \n Days on Street : \(String(temp)) \n Location : \(String(describing: self.countyName ?? "Nil"))"
+                    
+                    let carDetails = """
+                         \(carMake ?? "") \(carModel ?? "") \(carColor ?? "")
+                         Days on Street: \(String(temp))
+                         Location: \(self.countyName ?? "")
+                    """
+                    
+                    
+                    // Adding right padding and other styling options
+                    let formattedText = carDetails.padding(toLength: carDetails.count + 10, withPad: " ", startingAt: 0)
+
+
+                    
+                    self.carName.text = formattedText
+
+                    self.carName.numberOfLines = 0  // Allows for multi-line text
+                    self.carName.lineBreakMode = .byWordWrapping  // Wrap words nicely
+                    self.carName.font = UIFont.systemFont(ofSize: 16)  // Adjust font size
+                    
                 }
                
               // here we call this function so that we can filter and get the images that are in same group
@@ -338,12 +364,15 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
                      addressString += "\(street), \n "
                  }
                  if let subLocality = placemark.subLocality {
+                     
                      addressString += "\(subLocality), "
                  }
                  if let locality = placemark.locality {
+                     self.countyName = "\(locality)"
                      addressString += "\(locality),  \n"
                  }
                  if let administrativeArea = placemark.administrativeArea {
+
                      addressString += "\(administrativeArea),  \n"
                  }
                  if let postalCode = placemark.postalCode {

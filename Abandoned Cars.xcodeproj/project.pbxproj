@@ -22,6 +22,9 @@
 		E83083042BD0489E00BA8D1B /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E83083032BD0489E00BA8D1B /* FirebaseStorage */; };
 		E83083062BD6D13200BA8D1B /* StructStorageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83083052BD6D13200BA8D1B /* StructStorageViewController.swift */; };
 		E84715982C08DD8D00F44908 /* CarSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84715972C08DD8D00F44908 /* CarSearchViewController.swift */; };
+		E876CEB72D822AAF000C2980 /* nmf.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = E876CEB62D820C2A000C2980 /* nmf.mp4 */; };
+		E876CEB92D823026000C2980 /* loadVideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = E876CEB82D823025000C2980 /* loadVideo.mp4 */; };
+		E876CEBD2D8234CD000C2980 /* AdvancedSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E876CEBA2D8234CD000C2980 /* AdvancedSearchViewController.swift */; };
 		E893FCD42BC9A5BF004EABDC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E893FCD32BC9A5BF004EABDC /* AppDelegate.swift */; };
 		E893FCD62BC9A5BF004EABDC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E893FCD52BC9A5BF004EABDC /* SceneDelegate.swift */; };
 		E893FCD82BC9A5BF004EABDC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E893FCD72BC9A5BF004EABDC /* ViewController.swift */; };
@@ -70,6 +73,9 @@
 		E83082FB2BD0422900BA8D1B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E83083052BD6D13200BA8D1B /* StructStorageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructStorageViewController.swift; sourceTree = "<group>"; };
 		E84715972C08DD8D00F44908 /* CarSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarSearchViewController.swift; sourceTree = "<group>"; };
+		E876CEB62D820C2A000C2980 /* nmf.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = nmf.mp4; sourceTree = "<group>"; };
+		E876CEB82D823025000C2980 /* loadVideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = loadVideo.mp4; sourceTree = "<group>"; };
+		E876CEBA2D8234CD000C2980 /* AdvancedSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchViewController.swift; sourceTree = "<group>"; };
 		E893FCD02BC9A5BF004EABDC /* Abandoned Cars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Abandoned Cars.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E893FCD32BC9A5BF004EABDC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E893FCD52BC9A5BF004EABDC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -170,6 +176,9 @@
 				E8F794972C18DA0E00950E4C /* CarListTableViewCell.swift */,
 				E8F794992C18F59800950E4C /* TableViewController.swift */,
 				E8B62B412D386E1600981C96 /* ContentTableViewController.swift */,
+				E876CEBA2D8234CD000C2980 /* AdvancedSearchViewController.swift */,
+				E876CEB82D823025000C2980 /* loadVideo.mp4 */,
+				E876CEB62D820C2A000C2980 /* nmf.mp4 */,
 				E8B7B9072D4C391700D8887D /* main.gif */,
 				E8B7B9092D4C414500D8887D /* home.gif */,
 				E8B7B9052D4C112200D8887D /* welcome.gif */,
@@ -268,6 +277,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E82188302D568E0E00F7BD62 /* mapMedium.png in Resources */,
+				E876CEB92D823026000C2980 /* loadVideo.mp4 in Resources */,
 				E82188322D568E8300F7BD62 /* mapMid.png in Resources */,
 				E819B9E42D6554BE001F767F /* loading.json in Resources */,
 				E8B62B3C2D3849AC00981C96 /* team.json in Resources */,
@@ -277,6 +287,7 @@
 				E893FCE02BC9A5C7004EABDC /* Base in Resources */,
 				E82188342D568EFA00F7BD62 /* mapIcon.png in Resources */,
 				E8B281802D5E5C05007404BE /* animation.gif in Resources */,
+				E876CEB72D822AAF000C2980 /* nmf.mp4 in Resources */,
 				E8C4D29E2D31E21700FF89E1 /* thankYou.json in Resources */,
 				E8B2817E2D5D1AB8007404BE /* lost.gif in Resources */,
 				E8B7B90A2D4C414600D8887D /* home.gif in Resources */,
@@ -309,6 +320,7 @@
 				E8F7949E2C2B3D8E00950E4C /* CollectionViewCell.swift in Sources */,
 				E83082FA2BCF23BE00BA8D1B /* ReportEndViewController.swift in Sources */,
 				E893FCEA2BC9D87D004EABDC /* MainMenuViewController.swift in Sources */,
+				E876CEBD2D8234CD000C2980 /* AdvancedSearchViewController.swift in Sources */,
 				E83082F42BCEF03500BA8D1B /* LocationViewController.swift in Sources */,
 				E8B62B462D39C2D700981C96 /* ScrollViewController.swift in Sources */,
 				E83082F82BCF238100BA8D1B /* CarDetailsViewController.swift in Sources */,

@@ -10,10 +10,15 @@ import FirebaseStorage
 import FirebaseFirestore
 import SDWebImage
 import Lottie
+import AVKit
+import AVFoundation
 
 class TableViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    let tableView = UITableView()
     
+    var receiveLicense: String?
+   var receiveZip: String?
     var fowardedMake: String?
     var fowardedModel: String?
     var fowardedColor: String?
@@ -36,7 +41,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     
     var imagePaths = [String]()
-
+    
     let storage = Storage.storage()
     
     var carList: [CarList] = []
@@ -45,12 +50,26 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     var test: [Data] = []
     
+    
+    
+    
+    private var videoPlayer: AVPlayer?
+    private var videoPlayerLayer: AVPlayerLayer?
+    private let videoView: UIView = {
+        let view = UIView()
+            view.isHidden = true
+            return view
+    }()
+    
     @IBOutlet weak var table : UITableView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        let string1 = UserDefaults.standard.string(forKey: "license") ?? ""
+        receiveLicense = string1
+        let string2 = UserDefaults.standard.string(forKey: "zipcode") ?? ""
+        receiveZip = string2
         table.dataSource = self
         table.delegate = self
        // table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
@@ -59,8 +78,22 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         print("We got word : \(fowardedModel ?? "default value")")
         print("We got word : \(fowardedColor ?? "default value")")
         
+        print("string1: \(string1), string2: \(string2)")
+        
         showLoadingIndicator()
- 
+        
+        view.addSubview(videoView)
+        videoView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate(
+            [videoView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+             videoView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+             videoView.rightAnchor.constraint(equalTo: view.rightAnchor),
+             videoView.leftAnchor.constraint(equalTo: view.leftAnchor)]
+        )
+        
+        setVideoPlayer()
+        
         fetchCars{
             DispatchQueue.main.async {
                 print("Number of cars: \(self.cars.count)")
@@ -69,7 +102,41 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
             }
         }
         
+        
+        
     }
+    
+    private func setVideoPlayer(){
+        
+        guard let videoUrl = Bundle.main.url(forResource: "loadVideo", withExtension: "mp4") else{
+            print("video do not exist")
+            return
+        }
+        
+        videoPlayer = AVPlayer(url: videoUrl)
+        videoPlayerLayer = AVPlayerLayer(player: videoPlayer)
+        videoPlayerLayer?.frame = videoView.bounds
+        videoPlayerLayer?.videoGravity = .resizeAspect
+        if let videoPlayerLayer = videoPlayerLayer {
+                    videoView.layer.addSublayer(videoPlayerLayer)
+                }
+        
+        NotificationCenter.default.addObserver(
+                    forName: .AVPlayerItemDidPlayToEndTime,
+                    object: videoPlayer?.currentItem,
+                    queue: .main) { [weak self] _ in
+                    self?.videoPlayer?.seek(to: .zero)
+                    self?.videoPlayer?.play()
+                }
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+            super.viewDidLayoutSubviews()
+            // Update player layer frame when view layout changes
+            videoPlayerLayer?.frame = videoView.bounds
+        }
+    
     func showLoadingIndicator() {
         
         let animationView = LottieAnimationView(name: "loading")
@@ -194,6 +261,9 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
             
         }
     }
+    deinit {
+            NotificationCenter.default.removeObserver(self)
+        }
     
     
     // This function gets the info from the database and then checks if it matched to the user input. It then ranks the matches with score and sort them in a ranking order.  Then updates the test Array with the sorted array of cars found based on ranking.
@@ -218,31 +288,65 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
             for document in documents {
                 
                 let data = document.data()
-                var score = data["score"] as? Int ?? 0
+                
                 let documentID = document.documentID
                 
-                if let make = document.data()["make"] as? String, make.lowercased() == self.fowardedMake?.lowercased() {
-                    score += 3
-                }
-              
-                if let models = document.data()["models"] as? String, models.lowercased() == self.fowardedModel?.lowercased()
-                {
-                    score += 2
-                }
-                if let color = document.data()["color"] as? String, color.lowercased() == self.fowardedColor?.lowercased() {
-                  
-                    score += 1
-                }
+                let make = (data["make"] as? String)?.lowercased()
+                let models = (data["models"] as? String)?.lowercased()
+                let color = (data["color"] as? String)?.lowercased()
+                let licenseNum =  (data["license_number"] as? String)?.lowercased()
                 
-                
-                let carList = CarList(id: documentID, score: score, data: data)
-                carLists.append(carList)
+                // Pre-filter: Make is mandatory, Model OR Color must match
+                let matchesMake = self.fowardedMake == nil || make == self.fowardedMake?.lowercased()
+               
+                if matchesMake  {
+                    
+                    var score = data["score"] as? Int ?? 0
+                    
+                    if let licenseNum = licenseNum, licenseNum == self.receiveLicense?.lowercased() {
+                        score += 20
+                    }
+                    
+                    if let make = make, make == self.fowardedMake?.lowercased() {
+                        score += 3
+                    }
+                    
+                    if let models = models, models == self.fowardedModel?.lowercased()
+                    {
+                        score += 2
+                    }
+                    if let color = color, color == self.fowardedColor?.lowercased() {
+                        
+                        score += 1
+                    }
+                    
+                    let carList = CarList(id: documentID, score: score, data: data)
+                    carLists.append(carList)
+                }
             }
             
             carLists.sort { $0.score > $1.score }
             
-            self.carList = carLists  // Assuming carList is a property of your view controller
-           // self.tableView.reloadData()  // Reload table view to reflect sorted data
+            if carLists.isEmpty {
+                self.videoView.isHidden = false
+                self.tableView.isHidden = true
+                self.videoPlayer?.play() // Start video playback
+                    } else {
+                        self.videoView.isHidden = true
+                        self.tableView.isHidden = false
+                        self.videoPlayer?.pause() // Stop video when results are found
+                        self.tableView.reloadData()
+                    }
+            
+            self.carList = carLists
+            
+            var checkBool = UserDefaults.standard.string(forKey: "CheckMark") ?? "" 
+           
+            if(checkBool == "false"){
+                UserDefaults.standard.set("", forKey: "string1")
+                UserDefaults.standard.set("", forKey: "string2")
+            }
+            
                     
             
             
@@ -306,8 +410,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         let titleAttributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.boldSystemFont(ofSize: 20),
-            .paragraphStyle : paragraphStyle,
-            .foregroundColor: UIColor.darkGray
+            .paragraphStyle : paragraphStyle
         ]
         
         attributedText.append(NSAttributedString(string: "\(title)", attributes: titleAttributes))

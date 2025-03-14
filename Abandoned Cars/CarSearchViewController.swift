@@ -18,10 +18,31 @@ struct CarMake {
 }
 
 class CarSearchViewController: UIViewController,  UIPickerViewDelegate, UIPickerViewDataSource,UITextFieldDelegate {
-
+    
+    
+//        var receivedString1: String
+//        var receivedString2: String
+//        
+//        // Custom initializer to receive data
+//        init(string1: String, string2: String) {
+//            self.receivedString1 = string1
+//            self.receivedString2 = string2
+//            super.init(nibName: nil, bundle: nil) // Call the superclass initializer
+//        }
+//        
+//        // Required initializer for Storyboard/XIB support
+//        required init?(coder: NSCoder) {
+//            self.receivedString1 = "" // Provide default values to prevent crashes
+//            self.receivedString2 = ""
+//            super.init(coder: coder)
+//        }
+   
+    
     var pickerView = UIPickerView()
     var carMakes: [CarMake] = []
     var pickerData: [String] = []
+    
+    @IBOutlet weak var wordButton: UIButton!
     
     @IBOutlet weak var makeTextField : UITextField!
     @IBOutlet weak var modelTextField : UITextField!
@@ -33,6 +54,14 @@ class CarSearchViewController: UIViewController,  UIPickerViewDelegate, UIPicker
     @IBOutlet weak var alertLabel: UILabel!
     
     @IBAction func submitBtn(_ sender: Any) {
+        
+        if UserDefaults.standard.string(forKey: "string1") == nil {
+            UserDefaults.standard.set("", forKey: "string1")
+        }
+        if UserDefaults.standard.string(forKey: "string2") == nil {
+            UserDefaults.standard.set("", forKey: "string2")
+        }
+        
         
         if makeTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true || modelTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true || colorTextField.text?.trimmingCharacters(in: .whitespaces).isEmpty == true  {
             
@@ -93,9 +122,16 @@ class CarSearchViewController: UIViewController,  UIPickerViewDelegate, UIPicker
         pickerView.isHidden = true
         
         
-        
-//        zipArea.delegate = self
-      //  licenseTextField.delegate = self
+        let text = "Click Here"
+        let changeableWord = NSMutableAttributedString(string: text)
+        let fullRange = NSRange(location: 0, length: text.count)
+        changeableWord.addAttribute(.underlineStyle, value: NSUnderlineStyle.single.rawValue, range: fullRange)
+
+        wordButton.setAttributedTitle(changeableWord, for: .normal)
+                
+        wordButton.backgroundColor = .clear
+        wordButton.layer.borderWidth = 0
+        wordButton.clipsToBounds = true
         
         let acuraModels = [
             CarModel(name: "ILX", colors: ["White", "Black", "Silver", "Red", "Blue"]),
@@ -405,7 +441,12 @@ class CarSearchViewController: UIViewController,  UIPickerViewDelegate, UIPicker
                 ])
     }
     
-   
+    
+    @IBAction func clickBtn(_ sender: Any) {
+        
+    
+    }
+    
     var carMakeNames = [String]()
     var carModels = [String]()
     var carYears = [String]()
@@ -455,11 +496,24 @@ class CarSearchViewController: UIViewController,  UIPickerViewDelegate, UIPicker
         func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
             return pickerData[row]
         }
+    func pickerView(_ pickerView: UIPickerView, willSelectRow row: Int, inComponent component: Int) {
+        isPickerScrolling = true
+    }
 
+    func pickerView(_ pickerView: UIPickerView, didEndSelectingRow row: Int, inComponent component: Int) {
+        isPickerScrolling = false
+    }
+
+        var isPickerScrolling = false
     
         func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
             // Handle the selection
+            guard !isPickerScrolling else { return }
+            
             guard let activeTextField = activeTextField else { return }
+
+               // Ensure the row is within the bounds of pickerData
+            guard row < pickerData.count else { return }
 
             switch activeTextField.tag {
             case 1:
