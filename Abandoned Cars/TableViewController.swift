@@ -108,12 +108,21 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
     
     private func setVideoPlayer(){
         
-        guard let videoUrl = Bundle.main.url(forResource: "loadVideo", withExtension: "mp4") else{
-            print("video do not exist")
+        var videoUrl: URL?
+
+        if traitCollection.userInterfaceStyle == .dark {
+            videoUrl = Bundle.main.url(forResource: "darkMode", withExtension: "mp4")
+        } else {
+            videoUrl = Bundle.main.url(forResource: "lightMode", withExtension: "mp4")
+        }
+
+        // Ensure the video URL exists before proceeding
+        guard let validVideoUrl = videoUrl else {
+            print("Video does not exist")
             return
         }
         
-        videoPlayer = AVPlayer(url: videoUrl)
+        let videoPlayer = AVPlayer(url: validVideoUrl)
         videoPlayerLayer = AVPlayerLayer(player: videoPlayer)
         videoPlayerLayer?.frame = videoView.bounds
         videoPlayerLayer?.videoGravity = .resizeAspect
@@ -123,7 +132,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
         
         NotificationCenter.default.addObserver(
                     forName: .AVPlayerItemDidPlayToEndTime,
-                    object: videoPlayer?.currentItem,
+                    object: videoPlayer.currentItem,
                     queue: .main) { [weak self] _ in
                     self?.videoPlayer?.seek(to: .zero)
                     self?.videoPlayer?.play()
@@ -340,7 +349,7 @@ class TableViewController: UIViewController, UITableViewDataSource, UITableViewD
             
             self.carList = carLists
             
-            var checkBool = UserDefaults.standard.string(forKey: "CheckMark") ?? "" 
+            let checkBool = UserDefaults.standard.string(forKey: "CheckMark") ?? ""
            
             if(checkBool == "false"){
                 UserDefaults.standard.set("", forKey: "string1")

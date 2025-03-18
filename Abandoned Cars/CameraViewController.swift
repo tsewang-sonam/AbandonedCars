@@ -47,6 +47,11 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate , 
         cameraSix.layer.cornerRadius = 10.0
         
         cameraOne.layer.masksToBounds = true
+        cameraTwo.layer.masksToBounds = true
+        cameraThree.layer.masksToBounds = true
+        cameraFour.layer.masksToBounds = true
+        cameraFive.layer.masksToBounds = true
+        cameraSix.layer.masksToBounds = true
         // Do any additional setup after loading the view.
     }
     

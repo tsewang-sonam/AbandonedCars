@@ -22,8 +22,6 @@
 		E83083042BD0489E00BA8D1B /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = E83083032BD0489E00BA8D1B /* FirebaseStorage */; };
 		E83083062BD6D13200BA8D1B /* StructStorageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E83083052BD6D13200BA8D1B /* StructStorageViewController.swift */; };
 		E84715982C08DD8D00F44908 /* CarSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84715972C08DD8D00F44908 /* CarSearchViewController.swift */; };
-		E876CEB72D822AAF000C2980 /* nmf.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = E876CEB62D820C2A000C2980 /* nmf.mp4 */; };
-		E876CEB92D823026000C2980 /* loadVideo.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = E876CEB82D823025000C2980 /* loadVideo.mp4 */; };
 		E876CEBD2D8234CD000C2980 /* AdvancedSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E876CEBA2D8234CD000C2980 /* AdvancedSearchViewController.swift */; };
 		E893FCD42BC9A5BF004EABDC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E893FCD32BC9A5BF004EABDC /* AppDelegate.swift */; };
 		E893FCD62BC9A5BF004EABDC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E893FCD52BC9A5BF004EABDC /* SceneDelegate.swift */; };
@@ -53,6 +51,8 @@
 		E8C4D29E2D31E21700FF89E1 /* thankYou.json in Resources */ = {isa = PBXBuildFile; fileRef = E8C4D29D2D31E21700FF89E1 /* thankYou.json */; };
 		E8D437192CB70AED00213368 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = E8D437182CB70AED00213368 /* SDWebImage */; };
 		E8D4371B2CB70AED00213368 /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = E8D4371A2CB70AED00213368 /* SDWebImageMapKit */; };
+		E8D8A35F2D83BBC30043E45A /* lightMode.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = E8D8A35D2D83BBC20043E45A /* lightMode.mp4 */; };
+		E8D8A3602D83BBC30043E45A /* darkMode.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = E8D8A35E2D83BBC20043E45A /* darkMode.mp4 */; };
 		E8E1AA552D5549A80004A742 /* submit.png in Resources */ = {isa = PBXBuildFile; fileRef = E8E1AA542D5549A70004A742 /* submit.png */; };
 		E8F794982C18DA0E00950E4C /* CarListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F794972C18DA0E00950E4C /* CarListTableViewCell.swift */; };
 		E8F7949A2C18F59800950E4C /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8F794992C18F59800950E4C /* TableViewController.swift */; };
@@ -73,8 +73,6 @@
 		E83082FB2BD0422900BA8D1B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E83083052BD6D13200BA8D1B /* StructStorageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StructStorageViewController.swift; sourceTree = "<group>"; };
 		E84715972C08DD8D00F44908 /* CarSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarSearchViewController.swift; sourceTree = "<group>"; };
-		E876CEB62D820C2A000C2980 /* nmf.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = nmf.mp4; sourceTree = "<group>"; };
-		E876CEB82D823025000C2980 /* loadVideo.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = loadVideo.mp4; sourceTree = "<group>"; };
 		E876CEBA2D8234CD000C2980 /* AdvancedSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvancedSearchViewController.swift; sourceTree = "<group>"; };
 		E893FCD02BC9A5BF004EABDC /* Abandoned Cars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Abandoned Cars.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E893FCD32BC9A5BF004EABDC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -86,6 +84,7 @@
 		E893FCE12BC9A5C7004EABDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E893FCE72BC9D830004EABDC /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		E893FCE92BC9D87D004EABDC /* MainMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
+		E896E09E2D84D7CB0005F7F1 /* Abandoned Cars.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Abandoned Cars.entitlements"; sourceTree = "<group>"; };
 		E8B2817D2D5D1AB8007404BE /* lost.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = lost.gif; sourceTree = "<group>"; };
 		E8B2817F2D5E5C04007404BE /* animation.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = animation.gif; sourceTree = "<group>"; };
 		E8B62B3B2D3849AC00981C96 /* team.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = team.json; sourceTree = "<group>"; };
@@ -102,6 +101,8 @@
 		E8B7B9072D4C391700D8887D /* main.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = main.gif; sourceTree = "<group>"; };
 		E8B7B9092D4C414500D8887D /* home.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = home.gif; sourceTree = "<group>"; };
 		E8C4D29D2D31E21700FF89E1 /* thankYou.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = thankYou.json; sourceTree = "<group>"; };
+		E8D8A35D2D83BBC20043E45A /* lightMode.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = lightMode.mp4; sourceTree = "<group>"; };
+		E8D8A35E2D83BBC20043E45A /* darkMode.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = darkMode.mp4; sourceTree = "<group>"; };
 		E8E1AA542D5549A70004A742 /* submit.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = submit.png; sourceTree = "<group>"; };
 		E8F794972C18DA0E00950E4C /* CarListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarListTableViewCell.swift; sourceTree = "<group>"; };
 		E8F794992C18F59800950E4C /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
@@ -154,6 +155,7 @@
 		E893FCD22BC9A5BF004EABDC /* Abandoned Cars */ = {
 			isa = PBXGroup;
 			children = (
+				E896E09E2D84D7CB0005F7F1 /* Abandoned Cars.entitlements */,
 				E893FCD32BC9A5BF004EABDC /* AppDelegate.swift */,
 				E893FCD52BC9A5BF004EABDC /* SceneDelegate.swift */,
 				E893FCD72BC9A5BF004EABDC /* ViewController.swift */,
@@ -177,8 +179,8 @@
 				E8F794992C18F59800950E4C /* TableViewController.swift */,
 				E8B62B412D386E1600981C96 /* ContentTableViewController.swift */,
 				E876CEBA2D8234CD000C2980 /* AdvancedSearchViewController.swift */,
-				E876CEB82D823025000C2980 /* loadVideo.mp4 */,
-				E876CEB62D820C2A000C2980 /* nmf.mp4 */,
+				E8D8A35E2D83BBC20043E45A /* darkMode.mp4 */,
+				E8D8A35D2D83BBC20043E45A /* lightMode.mp4 */,
 				E8B7B9072D4C391700D8887D /* main.gif */,
 				E8B7B9092D4C414500D8887D /* home.gif */,
 				E8B7B9052D4C112200D8887D /* welcome.gif */,
@@ -277,7 +279,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E82188302D568E0E00F7BD62 /* mapMedium.png in Resources */,
-				E876CEB92D823026000C2980 /* loadVideo.mp4 in Resources */,
 				E82188322D568E8300F7BD62 /* mapMid.png in Resources */,
 				E819B9E42D6554BE001F767F /* loading.json in Resources */,
 				E8B62B3C2D3849AC00981C96 /* team.json in Resources */,
@@ -287,14 +288,15 @@
 				E893FCE02BC9A5C7004EABDC /* Base in Resources */,
 				E82188342D568EFA00F7BD62 /* mapIcon.png in Resources */,
 				E8B281802D5E5C05007404BE /* animation.gif in Resources */,
-				E876CEB72D822AAF000C2980 /* nmf.mp4 in Resources */,
 				E8C4D29E2D31E21700FF89E1 /* thankYou.json in Resources */,
+				E8D8A35F2D83BBC30043E45A /* lightMode.mp4 in Resources */,
 				E8B2817E2D5D1AB8007404BE /* lost.gif in Resources */,
 				E8B7B90A2D4C414600D8887D /* home.gif in Resources */,
 				E8B7B9022D4C004300D8887D /* abandoned.gif in Resources */,
 				E8B62B4D2D4AF1CC00981C96 /* carSearch.gif in Resources */,
 				E8B7B9082D4C391800D8887D /* main.gif in Resources */,
 				E8B62B482D4AE88A00981C96 /* carView.json in Resources */,
+				E8D8A3602D83BBC30043E45A /* darkMode.mp4 in Resources */,
 				E8B62B402D386B9200981C96 /* newAni.json in Resources */,
 				E8B62B4F2D4AF73D00981C96 /* Search.gif in Resources */,
 				E8B7B9042D4C0BC700D8887D /* thankYou.gif in Resources */,
@@ -479,10 +481,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Abandoned Cars/Abandoned Cars.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 55NHF8AGR6;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 55NHF8AGR6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Abandoned Cars/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = DumpedCars;
@@ -497,10 +502,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sonam.Abandoned-Cars";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = sonam;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -516,10 +522,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Abandoned Cars/Abandoned Cars.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 55NHF8AGR6;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 2;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 55NHF8AGR6;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Abandoned Cars/Info.plist";
 				INFOPLIST_KEY_CFBundleDisplayName = DumpedCars;
@@ -534,10 +543,11 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.sonam.Abandoned-Cars";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = sonam;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

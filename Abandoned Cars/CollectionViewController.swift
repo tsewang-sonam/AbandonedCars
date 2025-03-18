@@ -126,8 +126,6 @@ class CollectionViewController: UIViewController {
 
     
     // Here we fecth the data from firebase database for displaying text about car details and location it was found. ALso we get the group id so we can fetch multiple image related to a single item from the fire store.
-   
-    // MARK: - fetch
     func fetchCarDetails(documentID: String) {
         
        // here newDate is todays date and will be compared to old date of upload
@@ -289,7 +287,7 @@ extension CollectionViewController: UICollectionViewDelegate, UICollectionViewDa
         
         pageControl = UIPageControl()
             pageControl.translatesAutoresizingMaskIntoConstraints = false
-            pageControl.numberOfPages = pageNum ?? 5  // Set this dynamically based on your data
+            pageControl.numberOfPages = pageNum ?? 6  // Set this dynamically based on your data
             pageControl.currentPage = 0
         pageControl.pageIndicatorTintColor = .lightGray
         pageControl.currentPageIndicatorTintColor = .black
@@ -393,28 +391,29 @@ func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath:
     }
 }
 
-extension CollectionViewController: UICollectionViewDelegateFlowLayout{
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+extension CollectionViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let screenSize = UIScreen.main.bounds.size
-        let height = screenSize.height
-        let width = screenSize.width
+        let screenWidth = collectionView.bounds.width
+        let screenHeight = collectionView.bounds.height
         
-        if(height < 570){
-            print("One")
-            return CGSize(width: 200, height:220)
-            
-        } else if (height < 750){
-            print("Two")
-            return CGSize(width: 300, height:340)
-            
-        }else{
-            print("Three")
-            return CGSize(width: 400, height:480)
-           
-        }
+        let minCellWidth: CGFloat = 250  // Ensures cells don’t get too small
+        let maxCellWidth: CGFloat = 420  // Ensures cells don’t get too big
+        let cellHeightRatio: CGFloat = 1.4  // Aspect ratio
         
-            
+        // Calculate optimal number of columns
+        let estimatedColumns = floor(screenWidth / maxCellWidth)
+        let columns = max(estimatedColumns, 1)  // Ensure at least 1 column
+        
+        let padding: CGFloat = 16  // Side padding
+        let spacing: CGFloat = (columns - 1) * 12  // Spacing between items
+        let availableWidth = screenWidth - padding - spacing
+        let itemWidth = max(minCellWidth, availableWidth / columns)  // Adjust width
+        let itemHeight = itemWidth * cellHeightRatio  // Maintain aspect ratio
+        
+        return CGSize(width: itemWidth, height: itemHeight)
     }
-    
 }

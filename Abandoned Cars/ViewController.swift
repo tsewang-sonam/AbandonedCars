@@ -197,14 +197,14 @@ class ViewController: UIViewController, UITextFieldDelegate {
 
             
             
-            func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
                 // Hide the keyboard when return key is pressed
                 userName.resignFirstResponder()
                 zipcode.resignFirstResponder()
                 email.resignFirstResponder()
                 return true
             
-            }
+    }
     
 func checkUserExist(username: String, completion: @escaping (Bool) -> Void) {
     let usersCollection = database.collection("users")

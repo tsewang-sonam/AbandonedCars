@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AdvancedSearchViewController: UIViewController {
+class AdvancedSearchViewController: UIViewController, UISearchTextFieldDelegate {
     
     
     @IBOutlet weak var checkButton: UIButton!
@@ -18,6 +18,10 @@ class AdvancedSearchViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        zipInput.delegate = self
+        licenseInput.delegate = self
+        
         var zip = UserDefaults.standard.string(forKey: "zipcode")
         var license = UserDefaults.standard.string(forKey: "license")
         
@@ -78,6 +82,14 @@ class AdvancedSearchViewController: UIViewController {
                 
                 UserDefaults.standard.set("true", forKey: "CheckMark")
             }
+    }
+    
+   
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        zipInput.resignFirstResponder()
+        licenseInput.resignFirstResponder()
+           return true
+            
     }
     
     
